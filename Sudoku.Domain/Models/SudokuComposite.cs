@@ -8,13 +8,11 @@ namespace Sudoku.Domain.Models
 {
     public class SudokuComposite : IComponent
     {
-        // Toevoegen van een eigenschap voor Boxes
-        public List<IComponent> Boxes { get; private set; }
+        public List<IComponent> Boxes { get; }
 
-        // Constructor die de lijst van IComponent (Boxes) initialiseert
         public SudokuComposite(List<IComponent> boxes)
         {
-            Boxes = boxes ?? new List<IComponent>(); // Voorkom null door een lege lijst te geven als boxes null is
+            Boxes = boxes;
         }
 
         public bool Valid(State state, bool setValid)
@@ -23,8 +21,7 @@ namespace Sudoku.Domain.Models
 
             foreach (var square in squares.Where(square => !square.Locked && state.HasSquareValue(square)))
             {
-                var rowColumn = squares
-                    .Where(childSquare => (childSquare.Coordinate.Y == square.Coordinate.Y || childSquare.Coordinate.X == square.Coordinate.X) && childSquare != square)
+                var rowColumn = squares.Where(childSquare => (childSquare.Coordinate.Y == square.Coordinate.Y || childSquare.Coordinate.X == square.Coordinate.X) && childSquare != square)
                     .FirstOrDefault(childSquare => state.Check(childSquare, square));
 
                 if (rowColumn != null)
@@ -33,14 +30,14 @@ namespace Sudoku.Domain.Models
                     else return false;
                 }
 
-                var box = Find(box => box.GetChildren().Contains(square)).FirstOrDefault();
+                var box = Find(box => box.GetChildren().Contains(square)).First();
 
-                if (box != null && box.GetChildren().Cast<SquareLeaf>()
-                    .Any(childSquare => state.Check(childSquare, square) && childSquare != square))
-                {
-                    if (setValid) square.IsValid = false;
-                    else return false;
-                }
+                if (box.GetChildren().Cast<SquareLeaf>()
+                    .FirstOrDefault(childSquare =>
+                        state.Check(childSquare, square) && childSquare != square) == null) continue;
+
+                if (setValid) square.IsValid = false;
+                else return false;
             }
 
             return true;
@@ -53,13 +50,11 @@ namespace Sudoku.Domain.Models
 
         public IEnumerable<IComponent> Find(Func<IComponent, bool> search)
         {
-            // Gebruik Descendants om te zoeken in geneste componenten
-            return Boxes.Descendants(component => component.GetChildren()).Where(search);
+            return GetChildren().Descendants(component => component.GetChildren()).Where(search);
         }
 
         public IEnumerable<IComponent> GetChildren()
         {
-            // Teruggeven van de Boxes lijst
             return Boxes;
         }
     }

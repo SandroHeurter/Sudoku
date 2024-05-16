@@ -14,7 +14,6 @@ namespace Sudoku.Parser
             sudokuFactory.AddSudokuFactory("4x4", typeof(SudokuNormalFactory));
             sudokuFactory.AddSudokuFactory("6x6", typeof(SudokuNormalFactory));
             sudokuFactory.AddSudokuFactory("9x9", typeof(SudokuNormalFactory));
-            sudokuFactory.AddSudokuFactory("samurai", typeof(SudokuSamuraiFactory));
         }
 
         public BaseSudoku Parse(string format, string path = "./Formats/")

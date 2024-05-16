@@ -32,7 +32,6 @@ namespace Sudoku.Domain.Builders
         {
             board.Add(new Square(square));
         }
-     
 
         public void BuildRow()
         {
