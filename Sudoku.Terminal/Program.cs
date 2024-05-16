@@ -2,6 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Sudoku.Domain;
 using Sudoku.Domain.Models.Interfaces;
+using Sudoku.Domain.Models.Sudokus;
 using Sudoku.Domain.Utils;
 using Sudoku.Parser;
 
@@ -26,7 +27,7 @@ namespace Sudoku.Terminal
             services.AddSingleton<IGame, Game>();
             services.AddSingleton<IContext, Context>();
             services.AddSingleton<ISudokuParser, SudokuParser>();
-
         }
+
     }
 }

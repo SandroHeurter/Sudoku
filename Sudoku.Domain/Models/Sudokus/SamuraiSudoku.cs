@@ -1,6 +1,6 @@
-using System.Collections.Generic;
 using Sudoku.Domain.Models.Interfaces;
 using Sudoku.Domain.Strategies;
+using System.Collections.Generic;
 
 namespace Sudoku.Domain.Models.Sudokus
 {
@@ -12,6 +12,7 @@ namespace Sudoku.Domain.Models.Sudokus
 
         public override IStrategy GetSolverStrategy()
         {
+           
             return new BackTrackStrategy();
         }
     }

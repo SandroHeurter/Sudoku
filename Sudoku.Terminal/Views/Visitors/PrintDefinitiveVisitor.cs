@@ -1,8 +1,12 @@
+using System;
 using System.Drawing;
+using System.Linq;
 using System.Text;
 using Pastel;
+using Sudoku.Domain.Models;
 using Sudoku.Domain.Models.Interfaces;
 using Sudoku.Domain.Models.Parts;
+using Sudoku.Domain.Models.Sudokus;
 
 namespace Sudoku.Terminal.Views.Visitors
 {
@@ -62,5 +66,38 @@ namespace Sudoku.Terminal.Views.Visitors
         {
             stringBuilder.Append(new string(' ', spacer.Size));
         }
+        public void Visit(SamuraiSudoku sudoku)
+        {
+            var stringBuilder = new StringBuilder();
+            var boards = sudoku.Components.SelectMany(c => c.GetChildren()).ToList();
+
+            foreach (var board in boards)
+            {
+                var squares = board.GetChildren().Cast<SquareLeaf>().ToList();
+                for (int y = 0; y < 9; y++)
+                {
+                    for (int x = 0; x < 9; x++)
+                    {
+                        var square = squares.FirstOrDefault(s => s.Coordinate.X == x && s.Coordinate.Y == y);
+                        if (square != null)
+                        {
+                            var value = square.Value != "0" ? square.Value : " ";
+                            var color = square.Locked ? Color.Orange : Color.White;
+                            stringBuilder.Append(value.Pastel(color));
+                        }
+                        else
+                        {
+                            stringBuilder.Append(" ");
+                        }
+                    }
+                    stringBuilder.AppendLine();
+                }
+                stringBuilder.AppendLine();
+            }
+
+            Console.WriteLine(stringBuilder.ToString());
+        }
+
     }
+
 }

@@ -18,7 +18,9 @@ namespace Sudoku.Domain
         {
             ("4x4", true),
             ("6x6", false),
-            ("9x9", false)
+            ("9x9", false),
+            ("jigsaw", false),
+            ("samurai", false)
         };
 
         public Board Board { get; private set; }
