@@ -1,0 +1,43 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33530.505
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sudoku.Terminal", "Sudoku.Terminal\Sudoku.Terminal.csproj", "{3E788675-CFA7-42AF-943B-4488AB52303E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sudoku.Tests", "Sudoku.Tests\Sudoku.Tests.csproj", "{0E355D64-EC02-477C-B41D-4D7AF16B4BCC}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sudoku.Parser", "Sudoku.Parser\Sudoku.Parser.csproj", "{968D071A-DCF4-4401-BFDE-C53CE280A8E5}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sudoku.Domain", "Sudoku.Domain\Sudoku.Domain.csproj", "{8EA7EC05-0425-4EAF-8F7F-DE08286E581B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3E788675-CFA7-42AF-943B-4488AB52303E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3E788675-CFA7-42AF-943B-4488AB52303E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3E788675-CFA7-42AF-943B-4488AB52303E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3E788675-CFA7-42AF-943B-4488AB52303E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0E355D64-EC02-477C-B41D-4D7AF16B4BCC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0E355D64-EC02-477C-B41D-4D7AF16B4BCC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0E355D64-EC02-477C-B41D-4D7AF16B4BCC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0E355D64-EC02-477C-B41D-4D7AF16B4BCC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{968D071A-DCF4-4401-BFDE-C53CE280A8E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{968D071A-DCF4-4401-BFDE-C53CE280A8E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{968D071A-DCF4-4401-BFDE-C53CE280A8E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{968D071A-DCF4-4401-BFDE-C53CE280A8E5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8EA7EC05-0425-4EAF-8F7F-DE08286E581B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8EA7EC05-0425-4EAF-8F7F-DE08286E581B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8EA7EC05-0425-4EAF-8F7F-DE08286E581B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8EA7EC05-0425-4EAF-8F7F-DE08286E581B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2B42BC2A-C9C7-418F-99B1-ADB766BC14E7}
+	EndGlobalSection
+EndGlobal
