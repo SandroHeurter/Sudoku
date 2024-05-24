@@ -1,6 +1,7 @@
 #nullable enable
 
 using Sudoku.Domain.Models;
+using Sudoku.Domain.Models.Sudokus;
 using Sudoku.Domain.Utils;
 using Sudoku.Domain.Visitors;
 
@@ -15,6 +16,10 @@ namespace Sudoku.Domain.States
 
         public override Board? Construct()
         {
+            if (Context?.Sudoku() is SamuraiSudoku)
+            {
+                return Context?.Sudoku()?.Accept(new SamuraiSudokuVisitor());
+            }
             return Context?.Sudoku()?.Accept(new NormalSudokuVisitor());
         }
 

@@ -2,6 +2,8 @@
 
 using System.Linq;
 using Sudoku.Domain.Models;
+using Sudoku.Domain.Utils;
+using System.Collections.Generic;
 using Sudoku.Domain.Models.Interfaces;
 
 namespace Sudoku.Domain.Utils
@@ -25,12 +27,10 @@ namespace Sudoku.Domain.Utils
             var nextX = currentSquare.Coordinate.X + coordinate.X;
             var nextY = currentSquare.Coordinate.Y + coordinate.Y;
 
-            var nextCoordinate = new Coordinate(nextX, nextY);
-
             var nextSquare = orderedSquares
                 .FirstOrDefault(square =>
-                    square.Coordinate.X == nextCoordinate.X &&
-                    square.Coordinate.Y == nextCoordinate.Y);
+                    square.Coordinate.X == nextX &&
+                    square.Coordinate.Y == nextY);
 
             if (nextSquare == null)
             {
@@ -45,6 +45,5 @@ namespace Sudoku.Domain.Utils
         public abstract Board? Construct();
         public abstract bool Check(SquareLeaf leftSquare, SquareLeaf rightSquare);
         public abstract bool HasSquareValue(SquareLeaf square);
-
     }
 }
