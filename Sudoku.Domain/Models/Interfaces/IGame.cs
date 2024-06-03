@@ -13,7 +13,8 @@ namespace Sudoku.Domain.Models.Interfaces
         public BaseSudoku? sudoku { get; set; }
         public Board Board { get; }
         public void SelectSquare(Coordinate coordinate);
-        public void EnterValue(string value);
+        public void EnterValue(string value, SquareLeaf square); 
+        public void EnterValue(string value); 
         public void Solve();
         public void ValidateSudoku(bool update = true);
         public List<(string format, bool selected)> GetFormats();

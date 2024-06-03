@@ -99,6 +99,13 @@ namespace Sudoku.Domain
             Notify(this);
         }
 
+        // Nieuwe methode die twee argumenten accepteert
+        public void EnterValue(string value, SquareLeaf square)
+        {
+            context.EnterValue(value, square);
+            Notify(this);
+        }
+
         public List<(string format, bool selected)> GetFormats()
         {
             return formatList;

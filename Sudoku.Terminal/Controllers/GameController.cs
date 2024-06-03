@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Text;
 using Sudoku.Domain.Models;
 using Sudoku.Domain.Models.Interfaces;
@@ -18,9 +19,13 @@ namespace Sudoku.Terminal.Controllers
             App.game.SelectSquare(coordinate);
         }
 
-        public void EnterValue(string value)
+        public virtual void EnterValue(string value)
         {
-            App.game.EnterValue(value);
+            var selectedSquare = App.game.sudoku?.GetSquares().FirstOrDefault(square => square.Selected);
+            if (selectedSquare != null)
+            {
+                App.game.EnterValue(value, selectedSquare);
+            }
         }
 
         public virtual void ValidateSudoku()
@@ -32,6 +37,7 @@ namespace Sudoku.Terminal.Controllers
         {
             App.game.Solve();
         }
+
         public Board GetBoard()
         {
             return App.game.Board;
