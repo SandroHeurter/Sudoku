@@ -54,7 +54,7 @@ namespace Sudoku.Terminal.Views.Visitors
 
         public void Visit(Divider divider)
         {
-            stringBuilder.Append(divider.Horizontal ? " - " : "|");
+            stringBuilder.Append(divider.Horizontal ? "---" : "|");
         }
 
         public void Visit(Row row)
@@ -85,7 +85,7 @@ namespace Sudoku.Terminal.Views.Visitors
                     var boardIndex = GetBoardIndex(x, y);
                     if (boardIndex == -1)
                     {
-                        stringBuilder.Append(" ");
+                        stringBuilder.Append("   "); // Use three spaces for an empty cell
                     }
                     else
                     {
@@ -99,7 +99,7 @@ namespace Sudoku.Terminal.Views.Visitors
                         }
                         else
                         {
-                            stringBuilder.Append(" ");
+                            stringBuilder.Append("   "); // Use three spaces for an empty cell
                         }
                     }
 
@@ -115,12 +115,18 @@ namespace Sudoku.Terminal.Views.Visitors
                 {
                     if (ShouldAddHorizontalDivider(y))
                     {
-                        stringBuilder.AppendLine(new string('-', maxX + (maxX / 3 - 1)));
+                        stringBuilder.AppendLine(new string('-', maxX * 3 + (maxX / 3 - 1))); // Adjusted for divider size
                     }
                     else
                     {
-                        stringBuilder.AppendLine(new string(' ', maxX + (maxX / 3 - 1)));
+                        stringBuilder.AppendLine(new string(' ', maxX * 3 + (maxX / 3 - 1))); // Adjusted for spacer size
                     }
+                }
+
+                // Add extra spaces for alignment
+                if (y == 8 || y == 11)
+                {
+                    stringBuilder.AppendLine(new string(' ', 36));
                 }
             }
         }
@@ -137,7 +143,8 @@ namespace Sudoku.Terminal.Views.Visitors
 
         private bool ShouldAddHorizontalDivider(int y)
         {
-            return (y + 1) % 3 == 0 && y != 8 && y != 11;
+            // Only add horizontal dividers where needed, excluding specific rows
+            return (y + 1) % 3 == 0 && y != 8 && y != 11 && y != 17 && y != 20;
         }
     }
 }
