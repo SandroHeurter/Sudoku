@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-using System.Linq;
+﻿using System.Linq;
 using System.Collections.Generic;
 using Sudoku.Domain.Models;
 using Sudoku.Domain.Models.Interfaces;
@@ -47,12 +45,7 @@ namespace Sudoku.Domain
         {
             if (sudoku == null) return;
 
-            sudoku.GetSquares()
-                .ForEach(square => square.Value = "0");
-
-            context
-                .GetStrategy()?
-                .Solve(sudoku, context.GetState()!);
+            context.GetStrategy()?.Solve(sudoku, context.GetState()!);
 
             Notify(this);
         }
