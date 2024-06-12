@@ -16,6 +16,10 @@ namespace Sudoku.Domain.States
 
         public override Board? Construct()
         {
+            if (Context?.Sudoku() is JigsawSudoku)
+            {
+                return Context?.Sudoku()?.Accept(new JigsawSudokuVisitor());
+            }
             if (Context?.Sudoku() is SamuraiSudoku)
             {
                 return Context?.Sudoku()?.Accept(new SamuraiSudokuVisitor());

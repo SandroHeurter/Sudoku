@@ -14,5 +14,6 @@ namespace Sudoku.Domain.Models.Sudokus
         {
             return new BackTrackStrategy();
         }
+
     }
 }

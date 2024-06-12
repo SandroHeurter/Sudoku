@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using Sudoku.Domain.Builders;
 using Sudoku.Domain.Models;
@@ -10,42 +11,59 @@ namespace Sudoku.Domain.Visitors
     {
         public Board Visit(BaseSudoku sudoku)
         {
-            var jigsawSudoku = sudoku as JigsawSudoku;
+            var squares = sudoku.GetSquares();
             var boardBuilder = new BoardBuilder();
 
-            if (jigsawSudoku == null) return boardBuilder.GetResult();
+            var boxes = sudoku.Components
+                .SelectMany(box => box.Find(subBox => subBox.Composite()))
+                .ToList();
 
-            var squares = jigsawSudoku.GetSquares();
-            var maxY = squares.Max(s => s.Coordinate.Y);
-            var maxX = squares.Max(s => s.Coordinate.X);
+            var totalWidth = squares.Max(squareLeaf => squareLeaf.Coordinate.X) + 1;
 
-            for (var y = 0; y <= maxY; y++)
+            var firstBox = sudoku.Components
+                .Find(box => box.Composite())
+                .GetChildren()
+                .Count();
+
+            var nextHorizontal = (int)Math.Floor(Math.Sqrt(firstBox));
+            var nextVertical = (int)Math.Ceiling(Math.Sqrt(firstBox));
+
+            for (var i = 0; i < squares.Count; ++i)
             {
-                for (var x = 0; x <= maxX; x++)
+                var square = squares[i];
+                var nextSquare = i + 1 > squares.Count - 1 ? null : squares[i + 1];
+                var downLeaf = squares.FirstOrDefault(squareLeaf => squareLeaf.Coordinate.Y == square.Coordinate.Y + 1 && squareLeaf.Coordinate.X == square.Coordinate.X);
+                var box = boxes.FirstOrDefault(q => q.GetChildren().Contains(square));
+
+                boardBuilder.BuildSquare(square);
+
+                if (nextSquare?.Coordinate.Y == square.Coordinate.Y &&
+                    !box?.GetChildren().Contains(nextSquare!) == true)
                 {
-                    var square = squares.FirstOrDefault(s => s.Coordinate.X == x && s.Coordinate.Y == y);
-                    if (square != null)
-                    {
-                        boardBuilder.BuildSquare(square);
-                    }
-                    else
+                    if (square.IsEmpty() && nextSquare.IsEmpty())
                     {
                         boardBuilder.BuildSpacer(1);
                     }
-
-                    if ((x + 1) % 3 == 0 && x < maxX)
+                    else
                     {
                         boardBuilder.BuildDivider(false);
                     }
                 }
-                boardBuilder.BuildRow();
 
-                if ((y + 1) % 3 == 0 && y < maxY)
+                if (nextSquare?.Coordinate.Y == square.Coordinate.Y)
                 {
-                    boardBuilder.BuildDivider(true);
-                    boardBuilder.BuildRow();
+                    continue;
                 }
+
+                if ((square.Coordinate.Y + 1) % nextHorizontal != 0 || downLeaf == null)
+                {
+                    boardBuilder.BuildRow();
+                    continue;
+                }
+
+                boardBuilder.BuildRow();
             }
+
             return boardBuilder.GetResult();
         }
     }
