@@ -19,7 +19,7 @@ namespace Sudoku.Domain.Factories
 
         private SudokuComposite GenerateBoard(string data)
         {
-            var size = 9; // Elke Individuele Samurai Sudoku is een 9x9 grid
+            var size = 9; 
             var squares = new List<SquareLeaf>();
 
             for (int i = 0; i < size; i++)
@@ -60,7 +60,7 @@ namespace Sudoku.Domain.Factories
             var size = 21;
             var squares = new SquareLeaf[size, size];
 
-            // Coordinates for the top-left corners of the 5 boards
+            // Coordinates for the 5 boards
             var coordinates = new List<Coordinate>
             {
                 new Coordinate(0, 0),

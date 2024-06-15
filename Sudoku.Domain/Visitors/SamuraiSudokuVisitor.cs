@@ -20,18 +20,18 @@ namespace Sudoku.Domain.Visitors
 
             for (int y = 0; y < 21; y++)
             {
-                // Add spacing for alignment in the middle overlapping areas (10, 11, 12)
+                
                 if (y >= 9 && y < 12)
                 {
-                    boardBuilder.BuildSpacer(12); // Add 6 spaces at the start of the row
+                    boardBuilder.BuildSpacer(12); 
                 }
 
                 for (int x = 0; x < 21; x++)
                 {
-                    // Add spacing for alignment in the overlapping areas (first 9 and last 9)
+                 
                     if ((y < 6 && x == 9) || (y >= 15 && y < 21 && x == 9))
                     {
-                        boardBuilder.BuildSpacer(6); // Add 6 spaces
+                        boardBuilder.BuildSpacer(6); 
                     }
 
                     var square = squares.FirstOrDefault(s => s.Coordinate.X == x && s.Coordinate.Y == y);

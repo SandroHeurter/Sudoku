@@ -11,7 +11,7 @@ namespace Sudoku.Domain.Factories
     {
         public BaseSudoku CreateSudoku(string sudokuData)
         {
-            var size = 9; // For Jigsaw Sudoku
+            var size = 9; 
             var boardData = sudokuData.Split('=').Skip(1).Select(d => d.Split('J')).ToList();
             var boxes = GenerateBoxes(size, boardData);
             var sudoku = new SudokuComposite(boxes);
