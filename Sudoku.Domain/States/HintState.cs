@@ -20,6 +20,10 @@ namespace Sudoku.Domain.States
             {
                 return Context?.Sudoku()?.Accept(new SamuraiSudokuVisitor());
             }
+            else if (Context?.Sudoku() is JigsawSudoku)
+            {
+                return Context?.Sudoku()?.Accept(new JigsawSudokuVisitor());
+            }
             return Context?.Sudoku()?.Accept(new NormalSudokuVisitor());
         }
 
